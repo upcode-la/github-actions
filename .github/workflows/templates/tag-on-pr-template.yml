@@ -8,6 +8,6 @@ on:
 
 jobs:
   call-workflow-passing-data:
-    uses: upcode-la/devops/.github/workflows/tag-on-pr.yml@main
+    uses: upcode-la/github-actions/.github/workflows/tag-on-pr.yml@main
     secrets:
       PAT: ${{ secrets.PAT }}

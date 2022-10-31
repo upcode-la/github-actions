@@ -7,6 +7,6 @@ on:
 
 jobs:
   call-workflow-passing-data:
-    uses: upcode-la/devops/.github/workflows/docker-on-tag.yml@main
+    uses: upcode-la/github-actions/.github/workflows/docker-on-tag.yml@main
     secrets:
       token: ${{ github.GITHUB_TOKEN }}
