@@ -3,6 +3,8 @@ name: Tag On Push to main
 on:
   push:
     branches: [ main ]
+permissions:
+  contents: write
 
 jobs:
   call-workflow-passing-data:
