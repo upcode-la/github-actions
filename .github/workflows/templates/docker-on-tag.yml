@@ -1,0 +1,12 @@
+name: Push Docker Image on Tag
+
+on:
+  push:
+    tags:
+      - '*'
+
+jobs:
+  call-workflow-passing-data:
+    uses: upcode-la/devops/.github/workflows/docker-on-tag.yml@main
+    secrets:
+      token: ${{ github.GITHUB_TOKEN }}

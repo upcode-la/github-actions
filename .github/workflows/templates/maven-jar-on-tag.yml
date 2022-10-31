@@ -1,0 +1,12 @@
+name: Push Jar to Maven Repository
+
+on:
+  push:
+    tags:
+      - '*'
+
+jobs:
+  call-workflow-passing-data:
+    uses: upcode-la/devops/.github/workflows/maven-jar-on-tag.yml@main
+    secrets:
+      token: ${{ github.token }}

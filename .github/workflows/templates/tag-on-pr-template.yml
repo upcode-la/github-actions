@@ -1,0 +1,13 @@
+name: Tag On PR to main
+
+on:
+  pull_request:
+    types: [opened, synchronize, reopened]
+    branches:
+      - main
+
+jobs:
+  call-workflow-passing-data:
+    uses: upcode-la/devops/.github/workflows/tag-on-pr.yml@main
+    secrets:
+      PAT: ${{ secrets.PAT }}
