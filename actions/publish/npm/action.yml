@@ -1,0 +1,14 @@
+name: 'Publish with NPM'
+inputs:
+  token:
+    description: 'A Github token'
+    required: true
+runs:
+  using: "composite"
+  steps:
+    - name: Publish to GitHub Packages
+      shell: bash
+      run: npm publish
+      env:
+        NODE_AUTH_TOKEN: ${{ inputs.token }}
+        GITHUB_TOKEN: ${{ inputs.token }}

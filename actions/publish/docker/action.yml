@@ -4,7 +4,7 @@ inputs:
     description: 'A Github token'
     required: true
   app-type:
-    description: 'spring-boot'
+    description: 'spring-boot | npm-ui-lib'
     required: true
 runs:
   using: "composite"

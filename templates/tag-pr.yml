@@ -12,3 +12,4 @@ jobs:
       with:
         token: ${{ secrets.PAT }}
         build-tool: maven
+        app-type: 'spring-boot'

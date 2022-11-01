@@ -1,0 +1,46 @@
+name: 'Build with NPM'
+inputs:
+  app-type:
+    description: 'spring-boot | npm-ui-lib'
+    required: false
+runs:
+  using: "composite"
+  steps:
+    - uses: actions/checkout@v3
+    - name: Set up NodeJS
+      - uses: actions/setup-node@v3
+        with:
+          node-version: 16
+
+    - name: Hash Pom
+      shell: bash
+      run: echo "PACKAGE_LOCK_FILE_HASH=$(tail -n +3 package-lock.json | sha1sum | head -c 40)" >> $GITHUB_ENV
+
+    - name: Get npm cache directory
+      id: npm-cache-dir
+      run: |
+        echo "::set-output name=dir::$(npm config get cache)"
+    - uses: actions/cache@v3
+      id: npm-cache
+      with:
+        path: ${{ steps.npm-cache-dir.outputs.dir }}
+        key: ${{ runner.os }}-node-${{ env.PACKAGE_LOCK_FILE_HASH }}
+        restore-keys: |
+          ${{ runner.os }}-node-
+
+    - name: Install Dependencies
+      shell: bash
+      run: npm install
+
+    - name: Run Lint
+      shell: bash
+      run: npm run lint
+
+    - name: Build with NPM
+      shell: bash
+      run: npm run build
+
+    - name: Build Storybook
+      if: ${{ inputs.app-type == 'npm-ui-lib' }}
+      shell: bash
+      - run: npm run build-storybook

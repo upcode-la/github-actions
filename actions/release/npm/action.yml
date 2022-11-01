@@ -1,0 +1,7 @@
+name: 'Release with NPM'
+runs:
+  using: "composite"
+  steps:
+    - name: NPM Release
+      shell: bash
+      run: npm version patch
