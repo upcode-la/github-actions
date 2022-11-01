@@ -1,4 +1,4 @@
-name: Tag On Push to main
+name: Tag Release
 
 on:
   push:
@@ -7,8 +7,10 @@ permissions:
   contents: write
 
 jobs:
-  call-workflow-passing-data:
-    uses: gustavogarayalde/github-actions/actions/tag/release@composite-actions
-    with:
-      token: ${{ secrets.PAT }}
-      build-tool: maven
+  tag-release:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: gustavogarayalde/github-actions/actions/tag/release@main
+      with:
+        token: ${{ secrets.PAT }}
+        build-tool: maven

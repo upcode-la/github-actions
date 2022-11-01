@@ -7,8 +7,10 @@ on:
 
 jobs:
   publish:
-    uses: gustavogarayalde/github-actions/actions/publish@composite-actions
-    with:
-      token: ${{ secrets.PAT }}
-      build-tool: maven
-      repository: maven
+    runs-on: ubuntu-latest
+    steps:
+    - uses: gustavogarayalde/github-actions/actions/publish@main
+      with:
+        token: ${{ secrets.PAT }}
+        build-tool: maven
+        repository: maven

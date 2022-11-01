@@ -6,7 +6,9 @@ on:
 
 jobs:
   tag-pr:
-    uses: gustavogarayalde/github-actions/actions/tag/pr@composite-actions
-    with:
-      token: ${{ secrets.PAT }}
-      build-tool: maven
+    runs-on: ubuntu-latest
+    steps:
+    - uses: gustavogarayalde/github-actions/actions/tag/pr@main
+      with:
+        token: ${{ secrets.PAT }}
+        build-tool: maven
