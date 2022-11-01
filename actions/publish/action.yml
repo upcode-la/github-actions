@@ -9,6 +9,9 @@ inputs:
   token:
     description: 'A Github Token'
     required: true
+  app-type:
+    description: 'spring-boot'
+    required: true
   
 runs:
   using: "composite"
@@ -21,3 +24,4 @@ runs:
       if: ${{ inputs.build-tool == 'docker'}}
       with:
         token: ${{ inputs.token }}
+        app-type: ${{ inputs.app-type }}

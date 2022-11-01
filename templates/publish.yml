@@ -14,3 +14,4 @@ jobs:
         token: ${{ secrets.PAT }}
         build-tool: maven
         repository: maven
+        app-type: spring-boot
