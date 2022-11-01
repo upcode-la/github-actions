@@ -14,6 +14,10 @@ runs:
   using: "composite"
   steps:
     
+    - uses: actions/checkout@v3
+      with:
+        ref: ${{ github.ref_name }}
+
     - uses: gustavogarayalde/github-actions/actions/build/maven@main
       if: ${{ inputs.build-tool == 'maven' }}
 
@@ -34,16 +38,16 @@ runs:
       shell: bash
       run: git tag -a pr-${{ env.PR_NUMBER }}-$GITHUB_RUN_NUMBER -m "pr-${{ env.PR_NUMBER }}-$GITHUB_RUN_NUMBER"
 
-    - uses: actions/checkout@v3
-      with:
-        token: ${{ inputs.token }}
-
     - name: Tag NPM Version
       if: ${{ inputs.build-tool == 'npm' }}
       shell: bash
       run: |
         npm version prerelease --preid=pr-${{ env.PR_NUMBER }}
         git push
+
+    - uses: actions/checkout@v3
+      with:
+        token: ${{ inputs.token }}
 
     - name: Push tag to repo
       shell: bash
