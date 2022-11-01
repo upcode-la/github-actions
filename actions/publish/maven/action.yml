@@ -1,0 +1,13 @@
+name: 'Publish with Maven'
+inputs:
+  token:
+    description: 'A Github token'
+    required: true
+runs:
+  using: "composite"
+  steps:
+    - uses: gustavogarayalde/github-actions/actions/build/maven@main
+    - name: Publish to GitHub Packages Apache Maven
+      run: mvn deploy
+      env:
+        GITHUB_TOKEN: ${{ inputs.token }}

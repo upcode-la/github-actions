@@ -1,0 +1,16 @@
+name: 'Publish with Docker'
+inputs:
+  token:
+    description: 'A Github token'
+    required: true
+runs:
+  using: "composite"
+  steps:
+    - name: Push to GitHub Packages
+      uses: docker/build-push-action@v1
+      with:
+        username: ${{ github.actor }}
+        password: ${{ inputs.token }}
+        registry: docker.pkg.github.com
+        repository: ${{ github.repository }}/${{ github.event.repository.name }}
+        tag_with_ref: true

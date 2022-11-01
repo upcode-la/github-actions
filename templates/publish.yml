@@ -1,0 +1,14 @@
+name: Publish on Tag
+
+on:
+  push:
+    tags:
+      - '*'
+
+jobs:
+  publish:
+    uses: gustavogarayalde/github-actions/actions/publish@main
+    with:
+      token: ${{ secrets.PAT }}
+      build-tool: maven
+      repository: maven

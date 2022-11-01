@@ -1,0 +1,29 @@
+name: 'Build with Maven'
+inputs:
+  token:
+    description: 'A Github token'
+    required: true
+  build-tool:
+    description: 'maven'
+    required: true
+runs:
+  using: "composite"
+  steps:
+    - uses: gustavogarayalde/github-actions/actions/build/${{ inputs.build-tool }}@main
+    - name: Set up Git
+      run: |
+        git config --local user.email "action@github.com"
+        git config --local user.name "GitHub Action"
+    - uses: gustavogarayalde/github-actions/actions/release/${{ inputs.build-tool }}@main
+      with:
+        token: ${{ github.token }}
+
+    - name: Push version bump to repo
+      run: git push
+
+    - uses: actions/checkout@v3
+      with:
+        token: ${{ inputs.token }}
+
+    - name: Push tag
+      run: git push --tags
