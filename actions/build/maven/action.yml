@@ -1,0 +1,27 @@
+name: 'Build with Maven'
+runs:
+  using: "composite"
+  steps:
+    - uses: actions/checkout@v3
+    - name: Set up JDK 1.11
+      uses: actions/setup-java@v3
+      with:
+        distribution: 'temurin'
+        java-version: '11'
+        cache: 'maven'
+
+    - name: Hash Pom
+      shell: bash
+      run: echo "POM_FILE_HASH=$(tail -n +10 pom.xml | sha1sum | head -c 40)" >> $GITHUB_ENV
+
+    - name: Cache local Maven repository
+      uses: actions/cache@v3
+      with:
+        path: ~/.m2/repository
+        key: ${{ runner.os }}-maven-${{ env.POM_FILE_HASH }}
+        restore-keys: |
+          ${{ runner.os }}-maven-
+
+    - name: Build with Maven
+      shell: bash
+      run: mvn -B package --file pom.xml

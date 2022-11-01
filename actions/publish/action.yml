@@ -1,0 +1,23 @@
+name: 'Publish'
+inputs:
+  repository:
+    description: 'docker | maven'
+    required: true
+  build-tool:
+    description: 'maven'
+    required: true
+  token:
+    description: 'A Github Token'
+    required: true
+  
+runs:
+  using: "composite"
+  steps:
+    - uses: gustavogarayalde/github-actions/actions/publish/maven@composite-actions
+      if: ${{ inputs.build-tool == 'maven'}}
+      with:
+        token: ${{ inputs.token }}
+    - uses: gustavogarayalde/github-actions/actions/publish/docker@composite-actions
+      if: ${{ inputs.build-tool == 'docker'}}
+      with:
+        token: ${{ inputs.token }}

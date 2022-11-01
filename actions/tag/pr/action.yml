@@ -1,0 +1,26 @@
+name: 'Tag PR'
+inputs:
+  token:
+    description: 'A Github token'
+    required: true
+  build-tool:
+    description: 'maven'
+    required: true
+runs:
+  using: "composite"
+  steps:
+    - uses: gustavogarayalde/github-actions/actions/build/maven@composite-actions
+      if: ${{ inputs.build-tool == 'maven'}}
+    - name: Tag version
+      shell: bash
+      run: |
+        git config --local user.email "action@github.com"
+        git config --local user.name "GitHub Action"
+        PR_NUMBER=$(echo $GITHUB_REF | awk 'BEGIN { FS = "/" } ; { print $3 }')
+        git tag -a pr-$PR_NUMBER-$GITHUB_RUN_NUMBER -m "pr-$PR_NUMBER-$GITHUB_RUN_NUMBER"
+    - uses: actions/checkout@v3
+      with:
+        token: ${{ inputs.token }}
+    - name: Push tag to repo
+      shell: bash
+      run: git push --tags

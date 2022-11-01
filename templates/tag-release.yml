@@ -1,0 +1,16 @@
+name: Tag Release
+
+on:
+  push:
+    branches: [ main ]
+permissions:
+  contents: write
+
+jobs:
+  tag-release:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: gustavogarayalde/github-actions/actions/tag/release@main
+      with:
+        token: ${{ secrets.PAT }}
+        build-tool: maven

@@ -1,0 +1,14 @@
+name: 'Release with Maven'
+inputs:
+  token:
+    description: 'A Github token'
+    required: true
+runs:
+  using: "composite"
+  steps:
+    - name: Maven Release
+      shell: bash
+      run: |
+        mvn --batch-mode clean build-helper:parse-version release:prepare -DdevelopmentVersion=\${parsedVersion.majorVersion}.\${parsedVersion.minorVersion}.\${parsedVersion.nextIncrementalVersion}-SNAPSHOT -DpushChanges=false
+      env:
+        GITHUB_TOKEN: ${{ inputs.token }}

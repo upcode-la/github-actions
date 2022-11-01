@@ -1,0 +1,14 @@
+name: Tag PR
+
+on:
+  pull_request:
+    types: [opened, synchronize, reopened]
+
+jobs:
+  tag-pr:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: gustavogarayalde/github-actions/actions/tag/pr@main
+      with:
+        token: ${{ secrets.PAT }}
+        build-tool: maven
