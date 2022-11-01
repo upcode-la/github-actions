@@ -1,5 +1,8 @@
 name: 'Build with NPM'
 inputs:
+  token:
+    description: 'Github Token'
+    required: true
   app-type:
     description: 'spring-boot | npm-ui-lib'
     required: false
@@ -25,7 +28,9 @@ runs:
     - uses: actions/cache@v3
       id: npm-cache
       with:
-        path: ${{ steps.npm-cache-dir.outputs.dir }}
+        path: |
+          ${{ steps.npm-cache-dir.outputs.dir }}
+          ${{ github.workspace }}/.next/cache
         key: ${{ runner.os }}-node-${{ env.PACKAGE_LOCK_FILE_HASH }}
         restore-keys: |
           ${{ runner.os }}-node-
@@ -33,6 +38,8 @@ runs:
     - name: Install Dependencies
       shell: bash
       run: npm install --legacy-peer-deps
+      env:
+        NODE_AUTH_TOKEN: ${{ inputs.token }}
 
     - name: Run Lint
       shell: bash

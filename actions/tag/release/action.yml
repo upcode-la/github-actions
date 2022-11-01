@@ -19,6 +19,7 @@ runs:
       if: ${{ inputs.build-tool == 'npm'}}
       with:
         app-type: ${{ inputs.app-type }}
+        token: ${{ inputs.token }}
 
     - name: Git Config
       shell: bash
