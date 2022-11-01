@@ -27,5 +27,5 @@ runs:
       with:
         push: true
         file: ../../../dockerfiles/${{ inputs.app-type }}/Dockerfile
-        tags: ${{ github.repository }}/${{ github.event.repository.name }}:${{ env.GITHUB_REF }}
+        tags: ${{ github.repository }}/${{ github.event.repository.name }}:${{ github.ref_name }}
 
