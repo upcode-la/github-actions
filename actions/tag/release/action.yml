@@ -17,6 +17,8 @@ runs:
 
     - uses: gustavogarayalde/github-actions/actions/build/npm@main
       if: ${{ inputs.build-tool == 'npm'}}
+      with:
+        app-type: ${{ inputs.app-type }}
 
     - name: Git Config
       shell: bash
