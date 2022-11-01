@@ -9,6 +9,6 @@ runs:
     - uses: gustavogarayalde/github-actions/actions/build/maven@main
     - name: Publish to GitHub Packages Apache Maven
       shell: bash
-      run: mvn deploy
+      run: mvn deploy -DaltDeploymentRepository=github::default::https://maven.pkg.github.com/${{ github.repository }}
       env:
         GITHUB_TOKEN: ${{ inputs.token }}
