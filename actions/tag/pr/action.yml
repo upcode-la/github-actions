@@ -38,9 +38,7 @@ runs:
       if: ${{ inputs.build-tool == 'npm' }}
       shell: bash
       run: |
-        git diff
         npm version prerelease --preid=pr-${{ env.PR_NUMBER }}
-        git diff
         git push
 
     - uses: actions/checkout@v3
