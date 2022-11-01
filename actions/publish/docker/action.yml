@@ -21,12 +21,12 @@ runs:
         registry: docker.pkg.github.com
         username: ${{ github.actor }}
         password: ${{ inputs.token }}
-    -
-      name: Build and push
+    
+    - name: Build and push
       uses: docker/build-push-action@v3
       with:
         context: .
         push: true
-        file: https://github.com/gustavogarayalde/github-actions/blob/main/dockerfiles/${{ inputs.app-type }}/Dockerfile
+        file: https://raw.githubusercontent.com/gustavogarayalde/github-actions/main/dockerfiles/${{ inputs.app-type }}/Dockerfile
         tags: ${{ github.repository }}/${{ github.event.repository.name }}:${{ github.ref_name }}
 
