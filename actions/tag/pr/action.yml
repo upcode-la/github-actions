@@ -39,6 +39,7 @@ runs:
       shell: bash
       run: |
         npm version prerelease --preid=pr-${{ env.PR_NUMBER }}
+        git diff
         git push
 
     - uses: actions/checkout@v3
