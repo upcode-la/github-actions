@@ -7,6 +7,7 @@ runs:
   using: "composite"
   steps:
     - uses: actions/checkout@v3
+    
     - name: Set up NodeJS
       uses: actions/setup-node@v3
       with:
@@ -18,8 +19,10 @@ runs:
 
     - name: Get npm cache directory
       id: npm-cache-dir
+      shell: bash
       run: |
         echo "::set-output name=dir::$(npm config get cache)"
+
     - uses: actions/cache@v3
       id: npm-cache
       with:
@@ -43,4 +46,4 @@ runs:
     - name: Build Storybook
       if: ${{ inputs.app-type == 'npm-ui-lib' }}
       shell: bash
-      - run: npm run build-storybook
+      run: npm run build-storybook
