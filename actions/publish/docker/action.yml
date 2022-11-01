@@ -29,4 +29,6 @@ runs:
         push: true
         file: https://raw.githubusercontent.com/gustavogarayalde/github-actions/main/dockerfiles/${{ inputs.app-type }}/Dockerfile
         tags: docker.pkg.github.com/${{ github.repository }}/${{ github.event.repository.name }}:${{ github.ref_name }}
+        secrets: |
+            GIT_AUTH_TOKEN=${{ inputs.token }}
 
