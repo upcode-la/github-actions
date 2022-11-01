@@ -8,7 +8,7 @@ permissions:
 
 jobs:
   call-workflow-passing-data:
-    uses: gustavogarayalde/github-actions/actions/tag/release@main
+    uses: gustavogarayalde/github-actions/actions/tag/release@composite-actions
     with:
       token: ${{ secrets.PAT }}
       build-tool: maven

@@ -13,6 +13,6 @@ inputs:
 runs:
   using: "composite"
   steps:
-    - uses: gustavogarayalde/github-actions/actions/publish/${{ inputs.build-tool }}@main
+    - uses: gustavogarayalde/github-actions/actions/publish/${{ inputs.build-tool }}@composite-actions
       with:
         token: ${{ inputs.token }}

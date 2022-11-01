@@ -6,7 +6,7 @@ on:
 
 jobs:
   tag-pr:
-    uses: gustavogarayalde/github-actions/actions/tag/pr@main
+    uses: gustavogarayalde/github-actions/actions/tag/pr@composite-actions
     with:
       token: ${{ secrets.PAT }}
       build-tool: maven

@@ -9,7 +9,7 @@ inputs:
 runs:
   using: "composite"
   steps:
-    - uses: gustavogarayalde/github-actions/actions/build/${{ inputs.build-tool }}@main
+    - uses: gustavogarayalde/github-actions/actions/build/${{ inputs.build-tool }}@composite-actions
     - name: Tag version
       run: |
         git config --local user.email "action@github.com"

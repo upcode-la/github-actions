@@ -9,12 +9,12 @@ inputs:
 runs:
   using: "composite"
   steps:
-    - uses: gustavogarayalde/github-actions/actions/build/${{ inputs.build-tool }}@main
+    - uses: gustavogarayalde/github-actions/actions/build/${{ inputs.build-tool }}@composite-actions
     - name: Set up Git
       run: |
         git config --local user.email "action@github.com"
         git config --local user.name "GitHub Action"
-    - uses: gustavogarayalde/github-actions/actions/release/${{ inputs.build-tool }}@main
+    - uses: gustavogarayalde/github-actions/actions/release/${{ inputs.build-tool }}@composite-actions
       with:
         token: ${{ github.token }}
 

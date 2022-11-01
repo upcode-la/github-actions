@@ -7,7 +7,7 @@ on:
 
 jobs:
   publish:
-    uses: gustavogarayalde/github-actions/actions/publish@main
+    uses: gustavogarayalde/github-actions/actions/publish@composite-actions
     with:
       token: ${{ secrets.PAT }}
       build-tool: maven
