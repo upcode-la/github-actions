@@ -25,6 +25,7 @@ runs:
       name: Build and push
       uses: docker/build-push-action@v3
       with:
+        context: .
         push: true
         file: ../../../dockerfiles/${{ inputs.app-type }}/Dockerfile
         tags: ${{ github.repository }}/${{ github.event.repository.name }}:${{ github.ref_name }}
