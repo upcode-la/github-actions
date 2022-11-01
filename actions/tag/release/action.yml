@@ -11,6 +11,7 @@ runs:
   steps:
     - uses: gustavogarayalde/github-actions/actions/build/${{ inputs.build-tool }}@composite-actions
     - name: Set up Git
+      shell: bash
       run: |
         git config --local user.email "action@github.com"
         git config --local user.name "GitHub Action"
@@ -19,6 +20,7 @@ runs:
         token: ${{ github.token }}
 
     - name: Push version bump to repo
+      shell: bash
       run: git push
 
     - uses: actions/checkout@v3
@@ -26,4 +28,5 @@ runs:
         token: ${{ inputs.token }}
 
     - name: Push tag
+      shell: bash
       run: git push --tags

@@ -8,6 +8,7 @@ runs:
   steps:
     - uses: gustavogarayalde/github-actions/actions/build/maven@composite-actions
     - name: Publish to GitHub Packages Apache Maven
+      shell: bash
       run: mvn deploy
       env:
         GITHUB_TOKEN: ${{ inputs.token }}
