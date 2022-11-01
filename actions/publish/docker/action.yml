@@ -3,6 +3,9 @@ inputs:
   token:
     description: 'A Github token'
     required: true
+  app-type:
+    description: 'spring-boot'
+    required: true
 runs:
   using: "composite"
   steps:
@@ -23,6 +26,6 @@ runs:
       uses: docker/build-push-action@v3
       with:
         push: true
-        file: ../../../dockerfiles/spring-boot/Dockerfile
+        file: ../../../dockerfiles/${{ inputs.app-type }}/Dockerfile
         tags: ${{ github.repository }}/${{ github.event.repository.name }}:${{ env.GITHUB_REF }}
 
