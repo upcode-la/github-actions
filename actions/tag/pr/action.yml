@@ -9,7 +9,7 @@ inputs:
 runs:
   using: "composite"
   steps:
-    - uses: gustavogarayalde/github-actions/actions/build/maven@composite-actions
+    - uses: gustavogarayalde/github-actions/actions/build/maven@main
       if: ${{ inputs.build-tool == 'maven'}}
     - name: Tag version
       shell: bash

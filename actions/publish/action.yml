@@ -13,11 +13,11 @@ inputs:
 runs:
   using: "composite"
   steps:
-    - uses: gustavogarayalde/github-actions/actions/publish/maven@composite-actions
+    - uses: gustavogarayalde/github-actions/actions/publish/maven@main
       if: ${{ inputs.build-tool == 'maven'}}
       with:
         token: ${{ inputs.token }}
-    - uses: gustavogarayalde/github-actions/actions/publish/docker@composite-actions
+    - uses: gustavogarayalde/github-actions/actions/publish/docker@main
       if: ${{ inputs.build-tool == 'docker'}}
       with:
         token: ${{ inputs.token }}

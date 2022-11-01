@@ -9,14 +9,14 @@ inputs:
 runs:
   using: "composite"
   steps:
-    - uses: gustavogarayalde/github-actions/actions/build/maven@composite-actions
+    - uses: gustavogarayalde/github-actions/actions/build/maven@main
       if: ${{ inputs.build-tool == 'maven'}}
     - name: Set up Git
       shell: bash
       run: |
         git config --local user.email "action@github.com"
         git config --local user.name "GitHub Action"
-    - uses: gustavogarayalde/github-actions/actions/release/maven@composite-actions
+    - uses: gustavogarayalde/github-actions/actions/release/maven@main
       if: ${{ inputs.build-tool == 'maven'}}
       with:
         token: ${{ github.token }}
