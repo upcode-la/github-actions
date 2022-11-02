@@ -43,6 +43,7 @@ runs:
       if: ${{ inputs.build-tool == 'npm' }}
       shell: bash
       run: |
+        git diff
         npm version prerelease --preid=pr-${{ env.PR_NUMBER }}
         git push
 
