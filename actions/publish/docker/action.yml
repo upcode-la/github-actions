@@ -24,7 +24,7 @@ runs:
       with:
         context: .
         push: true
-        file: https://raw.githubusercontent.com/gustavogarayalde/github-actions/main/dockerfiles/${{ inputs.app-type }}/Dockerfile
+        file: https://raw.githubusercontent.com/gustavogarayalde/github-actions/v0.0.1/dockerfiles/${{ inputs.app-type }}/Dockerfile
         tags: docker.pkg.github.com/${{ github.repository }}/${{ github.event.repository.name }}:${{ github.ref_name }}
         github-token: ${{ inputs.token }}
 

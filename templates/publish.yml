@@ -9,7 +9,7 @@ jobs:
   publish:
     runs-on: ubuntu-latest
     steps:
-    - uses: gustavogarayalde/github-actions/actions/publish@main
+    - uses: gustavogarayalde/github-actions/actions/publish@versionTag
       with:
         token: ${{ secrets.PAT }}
         build-tool: maven

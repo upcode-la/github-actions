@@ -18,10 +18,10 @@ runs:
       with:
         ref: ${{ github.event.pull_request.head.ref }}
 
-    - uses: gustavogarayalde/github-actions/actions/build/maven@main
+    - uses: gustavogarayalde/github-actions/actions/build/maven@v0.0.1
       if: ${{ inputs.build-tool == 'maven' }}
 
-    - uses: gustavogarayalde/github-actions/actions/build/npm@main
+    - uses: gustavogarayalde/github-actions/actions/build/npm@v0.0.1
       if: ${{ inputs.build-tool == 'npm' }}
       with:
         app-type: ${{ inputs.app-type }}

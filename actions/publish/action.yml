@@ -18,26 +18,26 @@ runs:
   steps:
     - uses: actions/checkout@v3
 
-    - uses: gustavogarayalde/github-actions/actions/build/maven@main
+    - uses: gustavogarayalde/github-actions/actions/build/maven@v0.0.1
       if: ${{ inputs.build-tool == 'maven'}}
 
-    - uses: gustavogarayalde/github-actions/actions/build/npm@main
+    - uses: gustavogarayalde/github-actions/actions/build/npm@v0.0.1
       if: ${{ inputs.build-tool == 'npm'}}
       with:
         app-type: ${{ inputs.app-type }}
         token: ${{ inputs.token }}
     
-    - uses: gustavogarayalde/github-actions/actions/publish/maven@main
+    - uses: gustavogarayalde/github-actions/actions/publish/maven@v0.0.1
       if: ${{ inputs.repository == 'maven'}}
       with:
         token: ${{ inputs.token }}
 
-    - uses: gustavogarayalde/github-actions/actions/publish/npm@main
+    - uses: gustavogarayalde/github-actions/actions/publish/npm@v0.0.1
       if: ${{ inputs.repository == 'npm'}}
       with:
         token: ${{ inputs.token }}
     
-    - uses: gustavogarayalde/github-actions/actions/publish/docker@main
+    - uses: gustavogarayalde/github-actions/actions/publish/docker@v0.0.1
       if: ${{ inputs.repository == 'docker' || inputs.app-type == 'npm-ui-lib' }}
       with:
         token: ${{ inputs.token }}

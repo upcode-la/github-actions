@@ -12,10 +12,10 @@ runs:
 
     - uses: actions/checkout@v3
 
-    - uses: gustavogarayalde/github-actions/actions/build/maven@main
+    - uses: gustavogarayalde/github-actions/actions/build/maven@v0.0.1
       if: ${{ inputs.build-tool == 'maven'}}
 
-    - uses: gustavogarayalde/github-actions/actions/build/npm@main
+    - uses: gustavogarayalde/github-actions/actions/build/npm@v0.0.1
       if: ${{ inputs.build-tool == 'npm'}}
       with:
         app-type: ${{ inputs.app-type }}
@@ -27,12 +27,12 @@ runs:
         git config --local user.email "action@github.com"
         git config --local user.name "GitHub Action"
 
-    - uses: gustavogarayalde/github-actions/actions/release/maven@main
+    - uses: gustavogarayalde/github-actions/actions/release/maven@v0.0.1
       if: ${{ inputs.build-tool == 'maven'}}
       with:
         token: ${{ github.token }}
 
-    - uses: gustavogarayalde/github-actions/actions/release/npm@main
+    - uses: gustavogarayalde/github-actions/actions/release/npm@v0.0.1
       if: ${{ inputs.build-tool == 'npm'}}
 
     - name: Push version bump to repo
