@@ -27,7 +27,7 @@ runs:
         restore-keys: |
           ${{ runner.os }}-maven-
 
-    - name: Build with Maven
+    - name: Set up settings
       if: ${{inputs.settings-url != ''}}
       shell: bash
       run: |
