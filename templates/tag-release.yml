@@ -14,3 +14,4 @@ jobs:
       with:
         token: ${{ secrets.PAT }}
         build-tool: maven
+        settings-url: http://google.com # only for maven build-tool

@@ -12,4 +12,5 @@ jobs:
       with:
         token: ${{ secrets.PAT }}
         build-tool: maven
-        app-type: 'spring-boot'
+        app-type: spring-boot
+        settings-url: http://google.com # only for maven build-tool

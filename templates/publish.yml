@@ -15,3 +15,4 @@ jobs:
         build-tool: maven
         repository: maven
         app-type: spring-boot
+        settings-url: http://google.com # only for maven build-tool
