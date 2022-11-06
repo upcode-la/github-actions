@@ -39,6 +39,11 @@ runs:
       with:
         token: ${{ github.token }}
 
+    - name: Delete settings
+      if: ${{inputs.settings-url != ''}}
+      shell: bash
+      run: rm -f settings.xml
+
     - uses: gustavogarayalde/github-actions/actions/release/npm@test-mvn-settings
       if: ${{ inputs.build-tool == 'npm'}}
 

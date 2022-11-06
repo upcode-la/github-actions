@@ -39,8 +39,3 @@ runs:
       if: ${{inputs.settings-url == ''}}
       shell: bash
       run: mvn -B package --file pom.xml
-
-    - name: Delete settings
-      if: ${{inputs.settings-url != ''}}
-      shell: bash
-      run: rm settings.xml
