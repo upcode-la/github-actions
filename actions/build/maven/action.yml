@@ -32,6 +32,7 @@ runs:
       shell: bash
       run: |
         curl -o settings.xml -L https://${{inputs.token}}@${{inputs.settings-url}}
+        sed -i "s/MAVEN_USER/${{env.GITHUB_ACTOR}}/" settings.xml
         sed -i "s/MAVEN_TOKEN/${{inputs.token}}/" settings.xml
         mvn -B package -s settings.xml --file pom.xml
 
