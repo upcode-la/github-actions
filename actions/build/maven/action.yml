@@ -31,8 +31,8 @@ runs:
       if: ${{inputs.settings-url != ''}}
       shell: bash
       run: |
-        echo "MAVEN_TOKEN=${{inputs.token}}" >> $GITHUB_ENV
         curl -o settings.xml -L https://${{inputs.token}}@${{inputs.settings-url}}
+        sed -i "s/MAVEN_TOKEN/${{inputs.token}}/" settings.xml
         mvn -B package -s settings.xml --file pom.xml
 
     - name: Build with Maven
