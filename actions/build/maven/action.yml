@@ -31,10 +31,15 @@ runs:
       if: ${{inputs.settings-url != ''}}
       shell: bash
       run: |
-        curl -H -o settings.xml -L https://${{inputs.token}}@${{inputs.settings-url}}
+        curl -o settings.xml -L https://${{inputs.token}}@${{inputs.settings-url}}
         mvn -B package -s settings.xml --file pom.xml
 
     - name: Build with Maven
       if: ${{inputs.settings-url == ''}}
       shell: bash
       run: mvn -B package --file pom.xml
+
+    - name: Delete settings
+      if: ${{inputs.settings-url != ''}}
+      shell: bash
+      run: rm settings.xml
