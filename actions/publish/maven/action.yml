@@ -8,6 +8,6 @@ runs:
   steps:
     - name: Publish to GitHub Packages Apache Maven
       shell: bash
-      run: mvn deploy -Dmaven.install.skip=true -DaltDeploymentRepository=github::default::https://maven.pkg.github.com/${{ github.repository }}
+      run: mvn deploy -DskipTests=true -DaltDeploymentRepository=github::default::https://maven.pkg.github.com/${{ github.repository }}
       env:
         GITHUB_TOKEN: ${{ inputs.token }}
