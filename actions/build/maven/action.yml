@@ -3,6 +3,9 @@ inputs:
   settings-url:
     description: 'URL to settings.xml file'
     required: false
+  token:
+    description: 'Github Token'
+    required: false
 runs:
   using: "composite"
   steps:
@@ -28,7 +31,7 @@ runs:
       if: ${{inputs.settings-url != ''}}
       shell: bash
       run: |
-        curl -H -o settings.xml -L ${{inputs.settings-url}}
+        curl -H -o settings.xml -L https://${{inputs.token}}@${{inputs.settings-url}}
         mvn -B package -s settings.xml --file pom.xml
 
     - name: Build with Maven

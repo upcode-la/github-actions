@@ -25,6 +25,7 @@ runs:
       if: ${{ inputs.build-tool == 'maven' }}
       with:
         settings-url: ${{ inputs.settings-url }}
+        token: ${{ inputs.token }}
 
     - uses: gustavogarayalde/github-actions/actions/build/npm@test-mvn-settings
       if: ${{ inputs.build-tool == 'npm' }}
