@@ -9,6 +9,9 @@ inputs:
   app-type:
     description: 'spring-boot | npm-ui-lib'
     required: false
+  settings-url:
+    description: 'URL to settings.xml file'
+    required: false
     
 runs:
   using: "composite"
@@ -18,10 +21,13 @@ runs:
       with:
         ref: ${{ github.event.pull_request.head.ref }}
 
-    - uses: gustavogarayalde/github-actions/actions/build/maven@v0.0.1
+    - uses: gustavogarayalde/github-actions/actions/build/maven@v0.0.2
       if: ${{ inputs.build-tool == 'maven' }}
+      with:
+        settings-url: ${{ inputs.settings-url }}
+        token: ${{ inputs.token }}
 
-    - uses: gustavogarayalde/github-actions/actions/build/npm@v0.0.1
+    - uses: gustavogarayalde/github-actions/actions/build/npm@v0.0.2
       if: ${{ inputs.build-tool == 'npm' }}
       with:
         app-type: ${{ inputs.app-type }}

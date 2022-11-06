@@ -15,3 +15,4 @@ jobs:
         build-tool: maven
         repository: maven
         app-type: spring-boot
+        settings-url: raw.githubusercontent.com/OWNER/devops/main/maven/settings.xml # only for maven build-tool
