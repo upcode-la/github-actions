@@ -13,4 +13,4 @@ jobs:
         token: ${{ secrets.PAT }}
         build-tool: maven
         app-type: spring-boot
-        settings-url: http://google.com # only for maven build-tool
+        settings-url: raw.githubusercontent.com/OWNER/devops/main/maven/settings.xml # only for maven build-tool
