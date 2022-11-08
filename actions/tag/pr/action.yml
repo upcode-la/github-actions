@@ -21,13 +21,13 @@ runs:
       with:
         ref: ${{ github.event.pull_request.head.ref }}
 
-    - uses: gustavogarayalde/github-actions/actions/build/maven@v0.0.3
+    - uses: gustavogarayalde/github-actions/actions/build/maven@v0.0.4
       if: ${{ inputs.build-tool == 'maven' }}
       with:
         settings-url: ${{ inputs.settings-url }}
         token: ${{ inputs.token }}
 
-    - uses: gustavogarayalde/github-actions/actions/build/npm@v0.0.3
+    - uses: gustavogarayalde/github-actions/actions/build/npm@v0.0.4
       if: ${{ inputs.build-tool == 'npm' }}
       with:
         app-type: ${{ inputs.app-type }}
@@ -41,12 +41,12 @@ runs:
         echo "PR_NUMBER=$(echo $GITHUB_REF | awk 'BEGIN { FS = "/" } ; { print $3 }')" >> $GITHUB_ENV
 
     - name: Tag Version
-      if: ${{ inputs.build-tool == 'maven'}}
+      if: ${{ inputs.build-tool == 'maven' || inputs.app-type == 'next-js'}}
       shell: bash
       run: git tag -a pr-${{ env.PR_NUMBER }}-$GITHUB_RUN_NUMBER -m "pr-${{ env.PR_NUMBER }}-$GITHUB_RUN_NUMBER"
 
     - name: Tag NPM Version
-      if: ${{ inputs.build-tool == 'npm' }}
+      if: ${{ inputs.app-type == 'npm-ui-lib' }}
       shell: bash
       run: |
         npm version prerelease --preid=pr-${{ env.PR_NUMBER }}
