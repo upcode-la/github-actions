@@ -1,4 +1,4 @@
-FROM node:12.18.2-alpine3.12
+FROM node:16-alpine
 COPY ./package.json .
 COPY ./.next ./.next
 COPY ./next.config.js .
