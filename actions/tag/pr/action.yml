@@ -21,13 +21,13 @@ runs:
       with:
         ref: ${{ github.event.pull_request.head.ref }}
 
-    - uses: gustavogarayalde/github-actions/actions/build/maven@v0.0.5
+    - uses: gustavogarayalde/github-actions/actions/build/maven@v0.0.6-rc2
       if: ${{ inputs.build-tool == 'maven' }}
       with:
         settings-url: ${{ inputs.settings-url }}
         token: ${{ inputs.token }}
 
-    - uses: gustavogarayalde/github-actions/actions/build/npm@v0.0.5
+    - uses: gustavogarayalde/github-actions/actions/build/npm@v0.0.6-rc2
       if: ${{ inputs.build-tool == 'npm' }}
       with:
         app-type: ${{ inputs.app-type }}
