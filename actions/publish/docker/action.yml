@@ -18,13 +18,18 @@ runs:
         registry: docker.pkg.github.com
         username: ${{ github.actor }}
         password: ${{ inputs.token }}
+
+    - name: Download start script
+      if: ${{ inputs.app-type == 'next-js' }}
+      shell: bash
+      run: curl -o start.sh https://raw.githubusercontent.com/gustavogarayalde/github-actions/v0.0.6-rc3/dockerfiles/${{ inputs.app-type }}/start.sh
     
     - name: Build and push
       uses: docker/build-push-action@v3
       with:
         context: .
         push: true
-        file: https://raw.githubusercontent.com/gustavogarayalde/github-actions/v0.0.6-rc2/dockerfiles/${{ inputs.app-type }}/Dockerfile
+        file: https://raw.githubusercontent.com/gustavogarayalde/github-actions/v0.0.6-rc3/dockerfiles/${{ inputs.app-type }}/Dockerfile
         tags: docker.pkg.github.com/${{ github.repository }}/${{ github.event.repository.name }}:${{ github.ref_name }}
         github-token: ${{ inputs.token }}
 
