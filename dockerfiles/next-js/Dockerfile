@@ -6,5 +6,4 @@ COPY ./public ./public
 COPY ./node_modules ./node_modules
 COPY ./package.json .
 COPY ./.next ./.next
-RUN ls -l
 CMD ./start.sh
