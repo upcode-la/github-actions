@@ -1,9 +1,10 @@
 FROM node:18-alpine
+EXPOSE 3000
+COPY ./start.sh .
+COPY ./next.config.js .
+COPY ./public ./public
+COPY ./node_modules ./node_modules
 COPY ./package.json .
 COPY ./.next ./.next
-COPY ./next.config.js .
-COPY ./node_modules ./node_modules
-COPY ./public ./public
-COPY ./start.sh .
-EXPOSE 3000
+RUN ls -l
 CMD ./start.sh
