@@ -57,9 +57,6 @@ runs:
     - name: Build with NPM
       shell: bash
       run: npm run build
-      # env:
-      #   SENTRY_AUTH_TOKEN: ${{ inputs.sentry-token }}
-      # if: inputs.sentry-token != ''
 
     - name: Build Storybook
       if: ${{ inputs.app-type == 'npm-ui-lib' }}
