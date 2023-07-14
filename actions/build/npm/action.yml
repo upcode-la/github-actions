@@ -69,9 +69,9 @@ runs:
     - name: Create Sentry release
       uses: getsentry/action-release@v1
       if: ${{ inputs.sentry-release == 'true' }}
-      with:
-        version: ${{ github.ref }}
       env:
         SENTRY_AUTH_TOKEN: ${{ inputs.sentry-token }}
         SENTRY_ORG: ${{ inputs.sentry-org }}
         SENTRY_PROJECT: ${{ inputs.sentry-project }}
+      with:
+        version: ${{ github.ref_name }}
