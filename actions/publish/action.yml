@@ -29,6 +29,8 @@ runs:
   using: "composite"
   steps:
     - uses: actions/checkout@v3
+      with:
+        fetch-depth: 0
 
     - uses: gustavogarayalde/github-actions/actions/build/maven@v0.0.7-rc1
       if: ${{ inputs.build-tool == 'maven'}}
