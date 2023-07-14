@@ -67,6 +67,6 @@ runs:
       uses: getsentry/action-release@v1
       if: ${{ inputs.sentry-release == 'true' }}
       env:
-        SENTRY_AUTH_TOKEN: ${{ input.sentry-token }}
-        SENTRY_ORG: ${{ input.sentry-org }}
-        SENTRY_PROJECT: ${{ input.sentry-project }}
+        SENTRY_AUTH_TOKEN: ${{ inputs.sentry-token }}
+        SENTRY_ORG: ${{ inputs.sentry-org }}
+        SENTRY_PROJECT: ${{ inputs.sentry-project }}
