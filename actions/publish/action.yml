@@ -15,35 +15,39 @@ inputs:
   settings-url:
     description: 'URL to settings.xml file'
     required: false
+  sentry-release:
+    description: 'true | false'
+    required: false
   
 runs:
   using: "composite"
   steps:
     - uses: actions/checkout@v3
 
-    - uses: gustavogarayalde/github-actions/actions/build/maven@v0.0.6-rc10
+    - uses: gustavogarayalde/github-actions/actions/build/maven@v0.0.7-rc1
       if: ${{ inputs.build-tool == 'maven'}}
       with:
         settings-url: ${{ inputs.settings-url }}
         token: ${{ inputs.token }}
 
-    - uses: gustavogarayalde/github-actions/actions/build/npm@v0.0.6-rc10
+    - uses: gustavogarayalde/github-actions/actions/build/npm@v0.0.7-rc1
       if: ${{ inputs.build-tool == 'npm'}}
       with:
         app-type: ${{ inputs.app-type }}
         token: ${{ inputs.token }}
+        sentry-release: ${{ inputs.sentry-release }}
     
-    - uses: gustavogarayalde/github-actions/actions/publish/maven@v0.0.6-rc10
+    - uses: gustavogarayalde/github-actions/actions/publish/maven@v0.0.7-rc1
       if: ${{ inputs.repository == 'maven'}}
       with:
         token: ${{ inputs.token }}
 
-    - uses: gustavogarayalde/github-actions/actions/publish/npm@v0.0.6-rc10
+    - uses: gustavogarayalde/github-actions/actions/publish/npm@v0.0.7-rc1
       if: ${{ inputs.repository == 'npm'}}
       with:
         token: ${{ inputs.token }}
     
-    - uses: gustavogarayalde/github-actions/actions/publish/docker@v0.0.6-rc10
+    - uses: gustavogarayalde/github-actions/actions/publish/docker@v0.0.7-rc1
       if: ${{ inputs.repository == 'docker' || inputs.app-type == 'npm-ui-lib' }}
       with:
         token: ${{ inputs.token }}
