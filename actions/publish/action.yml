@@ -15,6 +15,15 @@ inputs:
   settings-url:
     description: 'URL to settings.xml file'
     required: false
+  sentry-token:
+    description: 'Sentry Auth Token'
+    required: false
+  sentry-org:
+    description: 'Sentry Organization Name'
+    required: false
+  sentry-project:
+    description: 'Sentry Project Name'
+    required: false
   
 runs:
   using: "composite"
@@ -32,9 +41,9 @@ runs:
       with:
         app-type: ${{ inputs.app-type }}
         token: ${{ inputs.token }}
-        sentry-token: ${{ secrets.SENTRY_AUTH_TOKEN }}
-        sentry-org: ${{ secrets.SENTRY_ORG }}
-        sentry-project: ${{ secrets.SENTRY_PROJECT }}
+        sentry-token: ${{ inputs.sentry-token }}
+        sentry-org: ${{ inputs.sentry-org }}
+        sentry-project: ${{ inputs.sentry-project }}
     
     - uses: gustavogarayalde/github-actions/actions/publish/maven@v0.0.7-rc1
       if: ${{ inputs.repository == 'maven'}}
