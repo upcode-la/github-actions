@@ -68,7 +68,7 @@ runs:
 
     - name: Create Sentry release
       uses: getsentry/action-release@v1
-      if: ${{ inputs.sentry-release == 'true' }}
+      if: ${{ inputs.sentry-token != '' }}
       env:
         SENTRY_AUTH_TOKEN: ${{ inputs.sentry-token }}
         SENTRY_ORG: ${{ inputs.sentry-org }}
