@@ -6,8 +6,14 @@ inputs:
   app-type:
     description: 'spring-boot | npm-ui-lib'
     required: false
-  sentry-release:
-    description: 'true | false'
+  sentry-token:
+    description: 'Sentry Auth Token'
+    required: false
+  sentry-org:
+    description: 'Sentry Organization Name'
+    required: false
+  sentry-project:
+    description: 'Sentry Project Name'
     required: false
 runs:
   using: "composite"
@@ -60,7 +66,7 @@ runs:
     - name: Create Sentry release
       uses: getsentry/action-release@v1
       if: ${{ inputs.sentry-release == 'true' }}
-      with:
-        SENTRY_AUTH_TOKEN: ${{ secrets.SENTRY_AUTH_TOKEN }}
-        SENTRY_ORG: ${{ secrets.SENTRY_ORG }}
-        SENTRY_PROJECT: ${{ secrets.SENTRY_PROJECT }}
+      env:
+        SENTRY_AUTH_TOKEN: ${{ input.sentry-token }}
+        SENTRY_ORG: ${{ input.sentry-org }}
+        SENTRY_PROJECT: ${{ input.sentry-project }}
