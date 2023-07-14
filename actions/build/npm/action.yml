@@ -75,3 +75,4 @@ runs:
         SENTRY_PROJECT: ${{ inputs.sentry-project }}
       with:
         version: ${{ github.ref_name }}
+        sourcemaps: .next
