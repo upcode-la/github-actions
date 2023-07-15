@@ -12,6 +12,9 @@ inputs:
   settings-url:
     description: 'URL to settings.xml file'
     required: false
+  with-storybook:
+    description: 'true | false'
+    required: false
     
 runs:
   using: "composite"
@@ -21,17 +24,18 @@ runs:
       with:
         ref: ${{ github.event.pull_request.head.ref }}
 
-    - uses: gustavogarayalde/github-actions/actions/build/maven@v0.0.7
+    - uses: gustavogarayalde/github-actions/actions/build/maven@v0.0.8
       if: ${{ inputs.build-tool == 'maven' }}
       with:
         settings-url: ${{ inputs.settings-url }}
         token: ${{ inputs.token }}
 
-    - uses: gustavogarayalde/github-actions/actions/build/npm@v0.0.7
+    - uses: gustavogarayalde/github-actions/actions/build/npm@v0.0.8
       if: ${{ inputs.build-tool == 'npm' }}
       with:
         app-type: ${{ inputs.app-type }}
         token: ${{ inputs.token }}
+        with-storybook: ${{ inputs.with-storybook }}
 
     - name: Git Config
       shell: bash
