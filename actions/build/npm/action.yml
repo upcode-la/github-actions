@@ -76,5 +76,5 @@ runs:
       with:
         version: ${{ github.ref_name }}
         sourcemaps: .next
-        ignore_missing: true
-        ignore_empty: true
+        ignore_missing: 'true'
+        ignore_empty: 'true'
