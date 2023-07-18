@@ -49,7 +49,7 @@ runs:
         sentry-token: ${{ inputs.sentry-token }}
         sentry-org: ${{ inputs.sentry-org }}
         sentry-project: ${{ inputs.sentry-project }}
-        whit-storybook: ${{ inputs.with-storybook }}
+        with-storybook: ${{ inputs.with-storybook }}
     
     - uses: gustavogarayalde/github-actions/actions/publish/maven@v0.0.8
       if: ${{ inputs.repository == 'maven'}}
@@ -62,7 +62,7 @@ runs:
         token: ${{ inputs.token }}
     
     - uses: gustavogarayalde/github-actions/actions/publish/docker@v0.0.8
-      if: ${{ inputs.repository == 'docker' || inputs.app-type == 'with-storybook' }}
+      if: ${{ inputs.repository == 'docker' || inputs.with-storybook == 'true' }}
       with:
         token: ${{ inputs.token }}
         app-type: ${{ inputs.app-type }}
