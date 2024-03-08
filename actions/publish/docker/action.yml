@@ -1,17 +1,17 @@
-name: 'Publish with Docker'
+name: "Publish with Docker"
 inputs:
   token:
-    description: 'A Github token'
+    description: "A Github token"
     required: true
   app-type:
-    description: 'spring-boot | npm-ui-lib'
+    description: "spring-boot | npm-ui-lib"
     required: true
 runs:
   using: "composite"
   steps:
     - name: Set up QEMU
       uses: docker/setup-qemu-action@v2
-    
+
     - name: Login to Docker Hub
       uses: docker/login-action@v2
       with:
@@ -23,15 +23,14 @@ runs:
       if: ${{ inputs.app-type == 'next-js' }}
       shell: bash
       run: |
-        curl -o start.sh https://raw.githubusercontent.com/gustavogarayalde/github-actions/v0.0.8/dockerfiles/${{ inputs.app-type }}/start.sh
+        curl -o start.sh https://raw.githubusercontent.com/gustavogarayalde/github-actions/v0.0.9/dockerfiles/${{ inputs.app-type }}/start.sh
         chmod +x start.sh
-    
+
     - name: Build and push
       uses: docker/build-push-action@v3
       with:
         context: .
         push: true
-        file: https://raw.githubusercontent.com/gustavogarayalde/github-actions/v0.0.8/dockerfiles/${{ inputs.app-type }}/Dockerfile
+        file: https://raw.githubusercontent.com/gustavogarayalde/github-actions/v0.0.9/dockerfiles/${{ inputs.app-type }}/Dockerfile
         tags: docker.pkg.github.com/${{ github.repository }}/${{ github.event.repository.name }}:${{ github.ref_name }}
         github-token: ${{ inputs.token }}
-

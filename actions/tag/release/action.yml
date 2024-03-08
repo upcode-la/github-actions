@@ -1,31 +1,30 @@
-name: 'Build and Release'
+name: "Build and Release"
 inputs:
   token:
-    description: 'A Github token'
+    description: "A Github token"
     required: true
   build-tool:
-    description: 'maven | npm'
+    description: "maven | npm"
     required: true
   settings-url:
-    description: 'URL to settings.xml file'
+    description: "URL to settings.xml file"
     required: false
   with-storybook:
-    description: 'true | false'
+    description: "true | false"
     required: false
 
 runs:
   using: "composite"
   steps:
-
     - uses: actions/checkout@v3
 
-    - uses: gustavogarayalde/github-actions/actions/build/maven@v0.0.8
+    - uses: gustavogarayalde/github-actions/actions/build/maven@v0.0.9
       if: ${{ inputs.build-tool == 'maven'}}
       with:
         settings-url: ${{ inputs.settings-url }}
         token: ${{ inputs.token }}
 
-    - uses: gustavogarayalde/github-actions/actions/build/npm@v0.0.8
+    - uses: gustavogarayalde/github-actions/actions/build/npm@v0.0.9
       if: ${{ inputs.build-tool == 'npm'}}
       with:
         app-type: ${{ inputs.app-type }}
@@ -38,12 +37,12 @@ runs:
         git config --local user.email "action@github.com"
         git config --local user.name "GitHub Action"
 
-    - uses: gustavogarayalde/github-actions/actions/release/maven@v0.0.8
+    - uses: gustavogarayalde/github-actions/actions/release/maven@v0.0.9
       if: ${{ inputs.build-tool == 'maven'}}
       with:
         token: ${{ github.token }}
 
-    - uses: gustavogarayalde/github-actions/actions/release/npm@v0.0.8
+    - uses: gustavogarayalde/github-actions/actions/release/npm@v0.0.9
       if: ${{ inputs.build-tool == 'npm'}}
 
     - name: Push version bump to repo

@@ -1,10 +1,10 @@
-name: 'Build with Maven'
+name: "Build with Maven"
 inputs:
   settings-url:
-    description: 'URL to settings.xml file'
+    description: "URL to settings.xml file"
     required: false
   token:
-    description: 'Github Token'
+    description: "Github Token"
     required: false
 runs:
   using: "composite"
@@ -12,8 +12,8 @@ runs:
     - name: Set up JDK 1.11
       uses: actions/setup-java@v3
       with:
-        distribution: 'temurin'
-        java-version: '11'
+        distribution: "temurin"
+        java-version: "11"
 
     - name: Hash Pom
       shell: bash
@@ -34,6 +34,10 @@ runs:
         curl -o ~/.m2/settings.xml -L https://${{inputs.token}}@${{inputs.settings-url}}
         sed -i "s/MAVEN_USER/$GITHUB_ACTOR/" ~/.m2/settings.xml
         sed -i "s/MAVEN_TOKEN/${{inputs.token}}/" ~/.m2/settings.xml
+
+    - name: Maven Validate
+      shell: bash
+      run: mvn validate --file pom.xml
 
     - name: Build with Maven
       shell: bash
