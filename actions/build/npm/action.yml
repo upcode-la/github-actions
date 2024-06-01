@@ -1,22 +1,22 @@
-name: 'Build with NPM'
+name: "Build with NPM"
 inputs:
   token:
-    description: 'Github Token'
+    description: "Github Token"
     required: true
   app-type:
-    description: 'spring-boot | npm-ui-lib'
+    description: "spring-boot | npm-ui-lib"
     required: false
   sentry-token:
-    description: 'Sentry Auth Token'
+    description: "Sentry Auth Token"
     required: false
   sentry-org:
-    description: 'Sentry Organization Name'
+    description: "Sentry Organization Name"
     required: false
   sentry-project:
-    description: 'Sentry Project Name'
+    description: "Sentry Project Name"
     required: false
   with-storybook:
-    description: 'true | false'
+    description: "true | false"
     required: false
 runs:
   using: "composite"
@@ -25,11 +25,11 @@ runs:
       uses: actions/setup-node@v3
       with:
         node-version: 18.16.1
-        registry-url: 'https://npm.pkg.github.com'
+        registry-url: "https://npm.pkg.github.com"
 
     - name: Hash Pom
       shell: bash
-      run: echo "PACKAGE_LOCK_FILE_HASH=$(tail -n +3 package-lock.json | sha1sum | head -c 40)" >> $GITHUB_ENV
+      run: echo "PACKAGE_LOCK_FILE_HASH=$(tail -n +10 package-lock.json | sha1sum | head -c 40)" >> $GITHUB_ENV
 
     - name: Get npm cache directory
       id: npm-cache-dir
@@ -43,9 +43,9 @@ runs:
         path: |
           ${{ steps.npm-cache-dir.outputs.dir }}
           ${{ github.workspace }}/.next/cache
-        key: ${{ runner.os }}-node-${{ env.PACKAGE_LOCK_FILE_HASH }}
+        key: ${{ runner.os }}-node-${{ env.PACKAGE_LOCK_FILE_HASH }}-${{ env.PACKAGE_LOCK_FILE_HASH }}
         restore-keys: |
-          ${{ runner.os }}-node-
+          ${{ runner.os }}-node-${{ env.PACKAGE_LOCK_FILE_HASH }}-
 
     - name: Install Dependencies
       shell: bash
@@ -76,5 +76,5 @@ runs:
       with:
         version: ${{ github.ref_name }}
         sourcemaps: .next
-        ignore_missing: 'true'
-        ignore_empty: 'true'
+        ignore_missing: "true"
+        ignore_empty: "true"
