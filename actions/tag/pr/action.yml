@@ -55,9 +55,9 @@ runs:
         npm version prerelease --preid=pr-${{ env.PR_NUMBER }}
         git push
 
-    - uses: actions/checkout@v3
-      with:
-        token: ${{ inputs.token }}
+    # - uses: actions/checkout@v3
+    #   with:
+    #     token: ${{ inputs.token }}
 
     - name: Push tag to repo
       shell: bash
