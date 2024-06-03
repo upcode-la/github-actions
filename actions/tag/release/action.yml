@@ -55,4 +55,6 @@ runs:
 
     - name: Push tag
       shell: bash
-      run: git push --tags
+      run: |
+        git remote set-url origin https://x-access-token:${{ inputs.token }}@github.com/$GITHUB_REPOSITORY
+        git push --tags
