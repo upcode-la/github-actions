@@ -55,6 +55,8 @@ runs:
 
     - name: Push tag
       shell: bash
+      env:
+        GH_PAT: ${{ inputs.token }}
       run: |
-        git remote set-url origin https://x-access-token:${{ inputs.token }}@github.com/$GITHUB_REPOSITORY
+        git remote set-url origin https://$GH_PAT@github.com/${{ github.repository }}
         git push --tags
