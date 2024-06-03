@@ -43,6 +43,7 @@ runs:
         path: |
           ${{ steps.npm-cache-dir.outputs.dir }}
           ${{ github.workspace }}/.next/cache
+          ${{ github.workspace }}/node_modules
         key: ${{ runner.os }}-node-${{ env.PACKAGE_LOCK_FILE_HASH }}-${{ env.PACKAGE_LOCK_FILE_HASH }}
         restore-keys: |
           ${{ runner.os }}-node-${{ env.PACKAGE_LOCK_FILE_HASH }}-
