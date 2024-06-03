@@ -55,14 +55,11 @@ runs:
         npm version prerelease --preid=pr-${{ env.PR_NUMBER }}
         git push
 
-    # - uses: actions/checkout@v3
-    #   with:
-    #     token: ${{ inputs.token }}
+    - uses: actions/checkout@v3
+      with:
+        token: ${{ inputs.token }}
+        clean: "false"
 
     - name: Push tag
       shell: bash
-      env:
-        GH_PAT: ${{ inputs.token }}
-      run: |
-        git remote set-url origin https://$GH_PAT@github.com/${{ github.repository }}
-        git push --tags
+      run: git push --tags
