@@ -56,6 +56,4 @@ runs:
 
     - name: Push tag
       shell: bash
-      env:
-        GH_PAT: ${{ inputs.token }}
       run: git push --tags
