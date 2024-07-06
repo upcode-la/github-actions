@@ -98,6 +98,7 @@ runs:
         coverage-file: ./coverage/jest-report.json
         base-coverage-file: ./coverage/jest-report.json
         skip-step: all
+        annotations: none
 
     - name: Build Storybook
       if: ${{ inputs.with-storybook == 'true' }}
