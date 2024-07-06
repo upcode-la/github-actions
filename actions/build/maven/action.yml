@@ -83,18 +83,6 @@ runs:
       env:
         GITHUB_TOKEN: ${{ inputs.token }}
 
-    - name: JaCoCo Code Coverage Report
-      uses: PavanMudigonda/jacoco-reporter@v5.0
-      with:
-        coverage_results_path: target/site/jacoco/jacoco.xml
-        coverage_report_name: "Test coverage results"
-        coverage_report_title: "Test coverage results"
-        github_token: ${{ inputs.token }}
-        skip_check_run: true
-        minimum_coverage: 90
-        fail_below_threshold: false
-        publish_only_summary: true
-
     - name: Maven Package
       shell: bash
       run: mvn -B package -Dmaven.test.skip --file pom.xml
