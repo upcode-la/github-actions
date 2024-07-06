@@ -62,7 +62,7 @@ runs:
         skip_check_run: true
         minimum_coverage: 90
         fail_below_threshold: false
-        publish_only_summary: false
+        publish_only_summary: true
 
     - name: Maven Package
       shell: bash
