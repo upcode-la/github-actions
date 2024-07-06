@@ -23,13 +23,6 @@ runs:
       with:
         ref: ${{ github.event.pull_request.head.ref }}
 
-    - name: Git Config
-      shell: bash
-      run: |
-        git config --global user.email "action@github.com"
-        git config --global user.name "GitHub Action"
-        echo "PR_NUMBER=$(echo $GITHUB_REF | awk 'BEGIN { FS = "/" } ; { print $3 }')" >> $GITHUB_ENV
-
     - uses: gustavogarayalde/github-actions/actions/build/maven@v0.0.11
       name: Maven Build
       if: ${{ inputs.build-tool == 'maven' }}
@@ -45,7 +38,13 @@ runs:
         app-type: ${{ inputs.app-type }}
         token: ${{ inputs.token }}
         with-storybook: ${{ inputs.with-storybook }}
-        comment-pr-with-coverage: "true"
+
+    - name: Git Config
+      shell: bash
+      run: |
+        git config --local user.email "action@github.com"
+        git config --local user.name "GitHub Action"
+        echo "PR_NUMBER=$(echo $GITHUB_REF | awk 'BEGIN { FS = "/" } ; { print $3 }')" >> $GITHUB_ENV
 
     - name: Tag Version
       if: ${{ inputs.build-tool == 'maven' || inputs.app-type == 'next-js'}}
