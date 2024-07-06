@@ -51,7 +51,7 @@ runs:
       shell: bash
       run: mvn -B test --file pom.xml
 
-    - name: Generate JaCoCo badge
+    - name: Generate Test Coverage Badges
       uses: cicirello/jacoco-badge-generator@v2
       with:
         generate-branches-badge: true
