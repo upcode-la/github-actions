@@ -73,12 +73,12 @@ runs:
     - name: Generate Test Coverage Badges
       if: ${{ inputs.publish-coverage-report == 'true' }}
       uses: jpb06/coverage-badges-action@latest
-        with:
-          branches: *
-          commit-message: "${{github.event.pull_request.title}} - Coverage badges"
-          commit-user: GitHub Action
-          commit-user-email: action@github.com
-          output-folder: .github/badges
+      with:
+        branches: *
+        commit-message: "${{github.event.pull_request.title}} - Coverage badges"
+        commit-user: GitHub Action
+        commit-user-email: action@github.com
+        output-folder: .github/badges
 
     - name: Push the coverage badges and summary file
       shell: bash
