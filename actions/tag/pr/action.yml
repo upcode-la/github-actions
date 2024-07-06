@@ -23,18 +23,22 @@ runs:
       with:
         ref: ${{ github.event.pull_request.head.ref }}
 
-    - uses: gustavogarayalde/github-actions/actions/build/maven@v0.0.10
+    - uses: gustavogarayalde/github-actions/actions/build/maven@v0.0.11
+      name: Maven Build
       if: ${{ inputs.build-tool == 'maven' }}
       with:
         settings-url: ${{ inputs.settings-url }}
         token: ${{ inputs.token }}
+        comment-pr-with-coverage: "true"
 
-    - uses: gustavogarayalde/github-actions/actions/build/npm@v0.0.10
+    - uses: gustavogarayalde/github-actions/actions/build/npm@v0.0.11
+      name: NPM Build
       if: ${{ inputs.build-tool == 'npm' }}
       with:
         app-type: ${{ inputs.app-type }}
         token: ${{ inputs.token }}
         with-storybook: ${{ inputs.with-storybook }}
+        comment-pr-with-coverage: "true"
 
     - name: Git Config
       shell: bash
@@ -48,7 +52,7 @@ runs:
       shell: bash
       run: git tag -a pr-${{ env.PR_NUMBER }}-$GITHUB_RUN_NUMBER -m "pr-${{ env.PR_NUMBER }}-$GITHUB_RUN_NUMBER"
 
-    - name: Tag NPM Version
+    - name: Tag NPM Lib Version
       if: ${{ inputs.app-type == 'npm-ui-lib' }}
       shell: bash
       run: |
@@ -56,6 +60,7 @@ runs:
         git push
 
     - uses: actions/checkout@v3
+      name: Checkout prepare push tag
       with:
         token: ${{ inputs.token }}
         clean: "false"

@@ -18,6 +18,10 @@ inputs:
   with-storybook:
     description: "true | false"
     required: false
+  comment-pr-with-coverage:
+    description: "true | false"
+    required: false
+
 runs:
   using: "composite"
   steps:
@@ -61,6 +65,19 @@ runs:
     - name: Build with NPM
       shell: bash
       run: npm run build
+
+    - name: Run Tests
+      shell: bash
+      run: npm run test:ci
+
+    - name: Comment PR with coverage
+      if: ${{inputs.comment-pr-with-coverage == 'true'}}
+      uses: ArtiomTr/jest-coverage-report-action@v2
+      with:
+        github-token: ${{ inputs.token }}
+        coverage-file: ./coverage/coverage-final.json
+        base-coverage-file: ./coverage/coverage-final.json
+        skip-step: all
 
     - name: Build Storybook
       if: ${{ inputs.with-storybook == 'true' }}

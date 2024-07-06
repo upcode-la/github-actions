@@ -6,6 +6,10 @@ inputs:
   token:
     description: "Github Token"
     required: false
+  comment-pr-with-coverage:
+    description: "true | false"
+    required: false
+
 runs:
   using: "composite"
   steps:
@@ -39,6 +43,23 @@ runs:
       shell: bash
       run: mvn validate --file pom.xml
 
-    - name: Build with Maven
+    - name: Maven Compile
       shell: bash
-      run: mvn -B package --file pom.xml
+      run: mvn -B compile --file pom.xml
+
+    - name: Maven Test
+      shell: bash
+      run: mvn -B test --file pom.xml
+
+    - name: Comment PR with coverage
+      if: ${{inputs.comment-pr-with-coverage == 'true'}}
+      uses: madrapps/jacoco-report@v1.6.1
+      with:
+        paths: ${{ github.workspace }}/**/target/site/jacoco/jacoco.xml,
+        token: ${{ inputs.token }}
+        min-coverage-overall: 90
+        min-coverage-changed-files: 90
+
+    - name: Maven Package
+      shell: bash
+      run: mvn -B package -Dmaven.test.skip --file pom.xml
