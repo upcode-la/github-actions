@@ -51,19 +51,11 @@ runs:
       shell: bash
       run: mvn -B test --file pom.xml
 
-    - name: Comment PR with coverage
-      uses: madrapps/jacoco-report@v1.6.1
-      with:
-        paths: ${{ github.workspace }}/**/target/site/jacoco/jacoco.xml,
-        token: ${{ inputs.token }}
-        min-coverage-overall: 90
-        min-coverage-changed-files: 90
-
     - name: JaCoCo Code Coverage Report
       if: ${{inputs.comment-pr-with-coverage == 'true'}}
       uses: PavanMudigonda/jacoco-reporter@v5.0
       with:
-        coverage_results_path: tatget/site/jacoco/jacoco.xml
+        coverage_results_path: target/site/jacoco/jacoco.xml
         coverage_report_name: "Test coverage results"
         coverage_report_title: "Test coverage results"
         github_token: ${{ inputs.token }}
