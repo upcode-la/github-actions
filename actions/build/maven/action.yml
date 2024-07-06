@@ -61,6 +61,7 @@ runs:
       if: ${{ github.event_name != 'pull_request' }}
       name: Checkout prepare push coverage badges
       with:
+        ref: ${{ github.ref_name }}
         token: ${{ inputs.token }}
         clean: "false"
 
