@@ -74,7 +74,7 @@ runs:
       if: ${{ inputs.publish-coverage-report == 'true' }}
       uses: jpb06/coverage-badges-action@latest
       with:
-        branches: *
+        branches: "*"
         commit-message: "${{github.event.pull_request.title}} - Coverage badges"
         commit-user: GitHub Action
         commit-user-email: action@github.com
