@@ -29,7 +29,7 @@ runs:
       with:
         settings-url: ${{ inputs.settings-url }}
         token: ${{ inputs.token }}
-        comment-pr-with-coverage: "true"
+        publish-coverage-report: "true"
 
     - uses: gustavogarayalde/github-actions/actions/build/npm@v0.0.11
       name: NPM Build
@@ -38,6 +38,7 @@ runs:
         app-type: ${{ inputs.app-type }}
         token: ${{ inputs.token }}
         with-storybook: ${{ inputs.with-storybook }}
+        publish-coverage-report: "true"
 
     - name: Git Config
       shell: bash
