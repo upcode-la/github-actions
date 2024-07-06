@@ -95,8 +95,8 @@ runs:
       uses: ArtiomTr/jest-coverage-report-action@v2
       with:
         github-token: ${{ inputs.token }}
-        coverage-file: ./coverage/coverage-summary.json
-        base-coverage-file: ./coverage/coverage-summary.json
+        coverage-file: ./coverage/jest-report.json
+        base-coverage-file: ./coverage/jest-report.json
         skip-step: all
 
     - name: Build Storybook
