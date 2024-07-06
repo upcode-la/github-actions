@@ -59,7 +59,7 @@ runs:
         coverage_report_name: "Test coverage results"
         coverage_report_title: "Test coverage results"
         github_token: ${{ inputs.token }}
-        skip_check_run: false
+        skip_check_run: true
         minimum_coverage: 90
         fail_below_threshold: false
         publish_only_summary: false
