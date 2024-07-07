@@ -43,12 +43,6 @@ runs:
         git config --local user.email "action@github.com"
         git config --local user.name "GitHub Action"
 
-    - name: Git Config
-      shell: bash
-      run: |
-        git status
-        git diff
-
     - uses: gustavogarayalde/github-actions/actions/release/maven@v0.0.11
       name: Maven Release
       if: ${{ inputs.build-tool == 'maven'}}
