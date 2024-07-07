@@ -6,6 +6,10 @@ inputs:
   token:
     description: "Github Token"
     required: false
+  publish-coverage-report:
+    description: "true | false"
+    required: false
+
 runs:
   using: "composite"
   steps:
@@ -39,6 +43,46 @@ runs:
       shell: bash
       run: mvn validate --file pom.xml
 
-    - name: Build with Maven
+    - name: Maven Compile
       shell: bash
-      run: mvn -B package --file pom.xml
+      run: mvn -B compile --file pom.xml
+
+    - name: Maven Test
+      shell: bash
+      run: mvn -B test --file pom.xml
+
+    - name: Generate Test Coverage Badges
+      uses: cicirello/jacoco-badge-generator@v2
+      with:
+        generate-branches-badge: true
+        generate-summary: true
+
+    - name: Commit and push the coverage badges and summary file
+      shell: bash
+      if: ${{ inputs.publish-coverage-report == 'true' }}
+      run: |
+        if [[ `git status --porcelain *.svg *.json` ]]; then
+          git config --local user.email "action@github.com"
+          git config --local user.name "GitHub Action"
+          git add *.svg *.json
+          git commit -m "${{github.event.pull_request.title}} - Coverage badges" *.svg *.json
+          git push
+        fi
+
+    - name: Comment on PR with coverage percentages
+      shell: bash
+      if: ${{ github.event_name == 'pull_request' && inputs.publish-coverage-report == 'true' }}
+      run: |
+        REPORT=$(<.github/badges/coverage-summary.json)
+        COVERAGE=$(jq -r '.coverage' <<< "$REPORT")%
+        BRANCHES=$(jq -r '.branches' <<< "$REPORT")%
+        NEWLINE=$'\n'
+        BODY="## JaCoCo Test Coverage Summary Statistics${NEWLINE}* __Coverage:__ ${COVERAGE}${NEWLINE}* __Branches:__ ${BRANCHES}"
+        gh pr comment ${{github.event.pull_request.number}} -b "${BODY}"
+      continue-on-error: true
+      env:
+        GITHUB_TOKEN: ${{ inputs.token }}
+
+    - name: Maven Package
+      shell: bash
+      run: mvn -B package -Dmaven.test.skip --file pom.xml

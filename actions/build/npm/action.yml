@@ -18,6 +18,13 @@ inputs:
   with-storybook:
     description: "true | false"
     required: false
+  publish-coverage-report:
+    description: "true | false"
+    required: false
+  skip-tests:
+    description: "true | false"
+    required: false
+
 runs:
   using: "composite"
   steps:
@@ -61,6 +68,41 @@ runs:
     - name: Build with NPM
       shell: bash
       run: npm run build
+
+    - name: Run Tests
+      if: ${{ inputs.skip-tests != 'true' }}
+      shell: bash
+      run: npm run test:ci
+
+    - name: Generate Test Coverage Badges
+      if: ${{ inputs.publish-coverage-report == 'true' && inputs.skip-tests != 'true' }}
+      uses: jpb06/coverage-badges-action@latest
+      with:
+        branches: "*"
+        commit-message: "${{github.event.pull_request.title}} - Coverage badges"
+        commit-user: GitHub Action
+        commit-user-email: action@github.com
+        output-folder: .github/badges
+
+    - name: Push the coverage badges and summary file
+      shell: bash
+      if: ${{ inputs.publish-coverage-report == 'true' && inputs.skip-tests != 'true' }}
+      run: |
+        if [[ `git status --porcelain *.svg *.json` ]]; then
+          git config --local user.email "action@github.com"
+          git config --local user.name "GitHub Action"
+          git push
+        fi
+
+    - name: Comment on PR with coverage percentages
+      if: ${{ github.event_name == 'pull_request' && inputs.publish-coverage-report == 'true' && inputs.skip-tests != 'true' }}
+      uses: ArtiomTr/jest-coverage-report-action@v2
+      with:
+        github-token: ${{ inputs.token }}
+        coverage-file: ./coverage/jest-report.json
+        base-coverage-file: ./coverage/jest-report.json
+        skip-step: all
+        annotations: none
 
     - name: Build Storybook
       if: ${{ inputs.with-storybook == 'true' }}

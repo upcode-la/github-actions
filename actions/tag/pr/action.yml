@@ -15,6 +15,9 @@ inputs:
   with-storybook:
     description: "true | false"
     required: false
+  skip-tests:
+    description: "true | false"
+    required: false
 
 runs:
   using: "composite"
@@ -23,18 +26,23 @@ runs:
       with:
         ref: ${{ github.event.pull_request.head.ref }}
 
-    - uses: gustavogarayalde/github-actions/actions/build/maven@v0.0.10
+    - uses: gustavogarayalde/github-actions/actions/build/maven@v0.0.11
+      name: Maven Build
       if: ${{ inputs.build-tool == 'maven' }}
       with:
         settings-url: ${{ inputs.settings-url }}
         token: ${{ inputs.token }}
+        publish-coverage-report: "true"
 
-    - uses: gustavogarayalde/github-actions/actions/build/npm@v0.0.10
+    - uses: gustavogarayalde/github-actions/actions/build/npm@v0.0.11
+      name: NPM Build
       if: ${{ inputs.build-tool == 'npm' }}
       with:
         app-type: ${{ inputs.app-type }}
         token: ${{ inputs.token }}
         with-storybook: ${{ inputs.with-storybook }}
+        publish-coverage-report: "true"
+        skip-tests: ${{ inputs.skip-tests }}
 
     - name: Git Config
       shell: bash
@@ -43,12 +51,17 @@ runs:
         git config --local user.name "GitHub Action"
         echo "PR_NUMBER=$(echo $GITHUB_REF | awk 'BEGIN { FS = "/" } ; { print $3 }')" >> $GITHUB_ENV
 
+    - uses: actions/checkout@v3
+      if: ${{ inputs.app-type == 'npm-ui-lib' }}
+      with:
+        ref: ${{ github.event.pull_request.head.ref }}
+
     - name: Tag Version
       if: ${{ inputs.build-tool == 'maven' || inputs.app-type == 'next-js'}}
       shell: bash
       run: git tag -a pr-${{ env.PR_NUMBER }}-$GITHUB_RUN_NUMBER -m "pr-${{ env.PR_NUMBER }}-$GITHUB_RUN_NUMBER"
 
-    - name: Tag NPM Version
+    - name: Tag NPM Lib Version
       if: ${{ inputs.app-type == 'npm-ui-lib' }}
       shell: bash
       run: |
@@ -56,6 +69,7 @@ runs:
         git push
 
     - uses: actions/checkout@v3
+      name: Checkout prepare push tag
       with:
         token: ${{ inputs.token }}
         clean: "false"
