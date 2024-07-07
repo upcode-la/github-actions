@@ -43,10 +43,10 @@ runs:
         git config --local user.email "action@github.com"
         git config --local user.name "GitHub Action"
 
-    - uses: actions/checkout@v3
-      if: ${{ inputs.app-type == 'npm-ui-lib' }}
-      with:
-        ref: ${{ github.event.pull_request.head.ref }}
+    - name: Git Config
+      shell: bash
+      run: |
+        git status
 
     - uses: gustavogarayalde/github-actions/actions/release/maven@v0.0.11
       name: Maven Release
