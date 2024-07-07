@@ -27,6 +27,9 @@ inputs:
   with-storybook:
     description: "true | false"
     required: false
+  skip-tests:
+    description: "true | false"
+    required: false
 
 runs:
   using: "composite"
@@ -50,6 +53,7 @@ runs:
         sentry-org: ${{ inputs.sentry-org }}
         sentry-project: ${{ inputs.sentry-project }}
         with-storybook: ${{ inputs.with-storybook }}
+        skip-tests: ${{ inputs.skip-tests }}
 
     - uses: gustavogarayalde/github-actions/actions/publish/maven@v0.0.11
       if: ${{ inputs.repository == 'maven'}}

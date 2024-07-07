@@ -15,6 +15,9 @@ inputs:
   with-storybook:
     description: "true | false"
     required: false
+  skip-tests:
+    description: "true | false"
+    required: false
 
 runs:
   using: "composite"
@@ -39,6 +42,7 @@ runs:
         token: ${{ inputs.token }}
         with-storybook: ${{ inputs.with-storybook }}
         publish-coverage-report: "true"
+        skip-tests: ${{ inputs.skip-tests }}
 
     - name: Git Config
       shell: bash

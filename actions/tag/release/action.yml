@@ -12,6 +12,9 @@ inputs:
   with-storybook:
     description: "true | false"
     required: false
+  skip-tests:
+    description: "true | false"
+    required: false
 
 runs:
   using: "composite"
@@ -32,6 +35,7 @@ runs:
         app-type: ${{ inputs.app-type }}
         token: ${{ inputs.token }}
         with-storybook: ${{ inputs.with-storybook }}
+        skip-tests: ${{ inputs.skip-tests }}
 
     - name: Git Config
       shell: bash
